@@ -76,3 +76,24 @@ ON DUPLICATE KEY UPDATE
 -- INSERT INTO viagens (id, titulo)
 -- VALUES ('20000000-0000-4000-8000-000000000001', 'Viagem de demonstração')
 -- ON DUPLICATE KEY UPDATE titulo = VALUES(titulo);
+
+CREATE TABLE IF NOT EXISTS atividades (
+  id CHAR(36) NOT NULL PRIMARY KEY,
+  viagem_id CHAR(36) NOT NULL,
+  nome VARCHAR(150) NOT NULL,
+  tipo VARCHAR(80) NOT NULL,
+  data DATE NOT NULL,
+  horario TIME NOT NULL,
+  local VARCHAR(255) NOT NULL,
+  duracao_minutos INT NOT NULL,
+  observacao VARCHAR(255) NULL,
+
+  CONSTRAINT fk_atividades_viagem
+    FOREIGN KEY (viagem_id) REFERENCES viagens(id)
+    ON UPDATE CASCADE ON DELETE RESTRICT,
+
+  CONSTRAINT chk_atividades_duracao
+    CHECK (duracao_minutos > 0),
+
+  INDEX idx_atividades_viagem_data (viagem_id, data)
+) ENGINE=InnoDB;

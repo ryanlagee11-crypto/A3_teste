@@ -6,6 +6,7 @@ import { budgetRoutes } from './routes/budgetRoutes.js';
 import { expenseRoutes } from './routes/expenseRoutes.js';
 import { dashboardRoutes } from './routes/dashboardRoutes.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import { activityRoutes } from './routes/activityRoutes.js';
 
 export const app = express();
 
@@ -24,6 +25,7 @@ app.get('/', (_request, response) => {
 app.use('/health', healthRoutes);
 app.use('/api/v1', budgetRoutes);
 app.use('/api/v1', expenseRoutes);
+app.use('/api/v1', activityRoutes);
 app.use('/api/v1', dashboardRoutes);
 
 app.use((_request, response) => {
